@@ -1,5 +1,6 @@
 ArabicHelper
 ============
+A plugin to help you localize your Rails app to arabic, this include few usefull helpers and ActiveRecord localization
 
 Arabic Helper consists of two parts, model extension and views helper methods.
 
