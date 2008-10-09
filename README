@@ -1,0 +1,31 @@
+ArabicHelper
+============
+
+Arabic Helper consists of two parts, model extension and views helper methods.
+
+Model extension is to help you have arabic error messages and attributes names in your model.
+
+Example
+=======
+
+Model extension:
+
+  class Post
+    has_arabic_attributes :body    => 'النص',
+                          :user_id => 'الكاتب'
+  end
+
+View/Controller
+  
+  @post = Post.first
+  @post.arabic_full_messages
+
+
+Available helpers:
+
+  arabic_country_options_for_select
+  arabic_time_ago_in_words(from_time, include_seconds = false)
+  arabic_distance_of_time_in_words(from_time, to_time = 0, include_seconds = false)
+  arabic_pluralize(number, singular, double, plural, gender_class='male')
+
+Copyright (c) 2008 Rida Al Barazi, released under the MIT license
