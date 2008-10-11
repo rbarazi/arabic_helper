@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: RidaAlBarazi::ArabicHelper</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">RidaAlBarazi::ArabicHelper</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/arabic_helper_rb.html">
+                lib/arabic_helper.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000003">arabic_country_options_for_select</a>&nbsp;&nbsp;
+      <a href="#M000005">arabic_distance_of_time_in_words</a>&nbsp;&nbsp;
+      <a href="#M000006">arabic_pluralize</a>&nbsp;&nbsp;
+      <a href="#M000004">arabic_time_ago_in_words</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ARABIC_COUNTRIES</td>
+          <td>=</td>
+          <td class="context-item-value">[&quot;آيسلندا&quot;, &quot;أذربيجان&quot;, &quot;أرمينيا&quot;, &quot;أروبه&quot;, &quot;أستراليا&quot;, &quot;أفغانستان&quot;, &quot;ألبانيا&quot;, &quot;ألمانيا&quot;, &quot;أنتاركتيكا&quot;, &quot;أندونيسيا&quot;, &quot;أنغولا&quot;, &quot;أورغواي&quot;, &quot;أوزباكستان&quot;, &quot;أوغندا&quot;, &quot;أوكرانيا&quot;, &quot;إريتريا&quot;, &quot;إسبانيا&quot;, &quot;إسرائيل&quot;, &quot;إكوادور&quot;, &quot;إلسلفادور&quot;, &quot;إيران&quot;, &quot;إيرلندا&quot;, &quot;إيطاليا&quot;, &quot;استونيا&quot;, &quot;الأردن&quot;, &quot;الإمارات العرب&quot;, &quot;الباهاماس&quot;, &quot;البحرين&quot;, &quot;البرازيل&quot;, &quot;البرتغال&quot;, &quot;البوسنة و الهرسك&quot;, &quot;الجزر العذراء الأمريكي&quot;, &quot;الجزر العذراء البريطانية&quot;, &quot;الجمهورية التشيكية&quot;, &quot;الجمهوريةالدومينيكية&quot;, &quot;الدانمارك&quot;, &quot;الرأس الأخضر&quot;, &quot;السنغال&quot;, &quot;السودان&quot;, &quot;السويد&quot;, &quot;الصحراء الغربية&quot;, &quot;الصومال&quot;, &quot;العراق&quot;, &quot;الغابون&quot;, &quot;الفاتيكان&quot;, &quot;الفليبين&quot;, &quot;الكويت&quot;, &quot;المالديف&quot;, &quot;المجر&quot;, &quot;المغرب&quot;, &quot;المكسيك&quot;, &quot;المملكة العربية السعودية&quot;, &quot;المملكة المتحدة&quot;, &quot;المناطق&quot;, &quot;النرويج&quot;, &quot;النمسا&quot;, &quot;النيجر&quot;, &quot;الهند&quot;, &quot;اليابان&quot;, &quot;اليمن&quot;, &quot;اليونان&quot;, &quot;بابوا غينيا الجديدة&quot;, &quot;باراغواي&quot;, &quot;باكستان&quot;, &quot;بالاو&quot;, &quot;بربادوس&quot;, &quot;بروني&quot;, &quot;بلجيكا&quot;, &quot;بلغاريا&quot;, &quot;بنغلاديش&quot;, &quot;بنما&quot;, &quot;بنين&quot;, &quot;بوتان&quot;, &quot;بوتسوانا&quot;, &quot;بورتوريكو&quot;, &quot;بوركينا فاسو&quot;, &quot;بوروندي&quot;, &quot;بولونيا&quot;, &quot;بوليفيا&quot;, &quot;بولينيزياالفرنسية&quot;, &quot;بيرو&quot;, &quot;بيليز&quot;, &quot;تايلندا&quot;, &quot;تايوان&quot;, &quot;تبت&quot;, &quot;تركمانستان&quot;, &quot;تركيا&quot;, &quot;ترينيداد وتوباغو&quot;, &quot;تشاد&quot;, &quot;تنزانيا&quot;, &quot;توغو&quot;, &quot;توفالو&quot;, &quot;تونس&quot;, &quot;تونغا&quot;, &quot;تيمور الشرقية&quot;, &quot;تيمور الشرقية&quot;, &quot;جبل طارق&quot;, &quot;جرينلاند&quot;, &quot;جزر الأنتيل الهولندي&quot;, &quot;جزر القمر&quot;, &quot;جزر برمودا&quot;, &quot;جزر سليمان&quot;, &quot;جزر فارو&quot;, &quot;جزر كوك&quot;, &quot;جزر ماريانا الشمالية&quot;, &quot;جزرجوادلوب&quot;, &quot;جزرمارشال&quot;, &quot;جمايكا&quot;, &quot;جمهورية الصين الشعبية&quot;, &quot;جمهوريةأفريقيا الوسطى&quot;, &quot;جمهوريةالكونغو&quot;, &quot;جمهوريةالكونغو الديمقراطية&quot;, &quot;جنوب أفريقيا&quot;, &quot;جوام&quot;, &quot;جيبوتي&quot;, &quot;جيورجيا&quot;, &quot;دومينيكا&quot;, &quot;رواندا&quot;, &quot;روسيا&quot;, &quot;روسيا البيضاء&quot;, &quot;رومانيا&quot;, &quot;زامبيا&quot;, &quot;زمبابوي&quot;, &quot;ساحل العاج&quot;, &quot;ساموا-الأمريكي&quot;, &quot;سان مارينو&quot;, &quot;سانت فنسنت وجزر غرينادين&quot;, &quot;سانت كيتس ونيفس&quot;, &quot;سانت لوسيا&quot;, &quot;ساو تومي وبرينسيبي&quot;, &quot;سريلانكا&quot;, &quot;سلوفاكيا&quot;, &quot;سلوفينيا&quot;, &quot;سنغافورة&quot;, &quot;سوازيلند&quot;, &quot;سوريا&quot;, &quot;سورينام&quot;, &quot;سويسرا&quot;, &quot;سيراليون&quot;, &quot;سيشيل&quot;, &quot;شيلي&quot;, &quot;طاجيكستان&quot;, &quot;عُمان&quot;, &quot;غامبيا&quot;, &quot;غانا&quot;, &quot;غرينادا&quot;, &quot;غواتيمال&quot;, &quot;غويانا الفرنسية&quot;, &quot;غيانا&quot;, &quot;غينيا&quot;, &quot;غينيا الاستوائي&quot;, &quot;غينيا-بيساو&quot;, &quot;فانواتو&quot;, &quot;فرنسا&quot;, &quot;فلسطين&quot;, &quot;فنزويلا&quot;, &quot;فنلندا&quot;, &quot;فيتنام&quot;, &quot;فيجي&quot;, &quot;قبرص&quot;, &quot;قطر&quot;, &quot;قيرغيزستان&quot;, &quot;كازاخستان&quot;, &quot;كاليدونيا الجديدة&quot;, &quot;كاميرون&quot;, &quot;كرواتيا&quot;, &quot;كمبوديا&quot;, &quot;كندا&quot;, &quot;كوبا&quot;, &quot;كوريا الجنوبية&quot;, &quot;كوريا الشمالية&quot;, &quot;كوستاريكا&quot;, &quot;كولومبيا&quot;, &quot;كيريباتي&quot;, &quot;كينيا&quot;, &quot;لاتفيا&quot;, &quot;لاوس&quot;, &quot;لبنان&quot;, &quot;لتوانيا&quot;, &quot;ليبيا&quot;, &quot;ليبيريا&quot;, &quot;ليختنشتين&quot;, &quot;ليسوتو&quot;, &quot;مارتينيك&quot;, &quot;ماكاو&quot;, &quot;مالطا&quot;, &quot;مالي&quot;, &quot;ماليزيا&quot;, &quot;مدغشقر&quot;, &quot;مصر&quot;, &quot;مقدونيا&quot;, &quot;منغوليا&quot;, &quot;موريتانيا&quot;, &quot;موريشيوس&quot;, &quot;موزمبيق&quot;, &quot;مولدافيا&quot;, &quot;موناكو&quot;, &quot;مونتسيرات&quot;, &quot;ميانمار&quot;, &quot;ناميبيا&quot;, &quot;نورو&quot;, &quot;ني&quot;, &quot;نيبال&quot;, &quot;نيجيريا&quot;, &quot;نيكاراجوا&quot;, &quot;نيوزيلندا&quot;, &quot;هايتي&quot;, &quot;هندوراس&quot;, &quot;هولندا&quot;, &quot;هونغ كونغ&quot;]</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">PRIORITY_COUNTRIES</td>
+          <td>=</td>
+          <td class="context-item-value">[&quot;الأردن&quot;, &quot;الإمارات العربية المتحدة&quot;, &quot;البحرين&quot;, &quot;السودان&quot;, &quot;الصومال&quot;, &quot;العراق&quot;, &quot;الكويت&quot;, &quot;المغرب&quot;, &quot;المملكة العربية السعودية&quot;, &quot;اليمن&quot;, &quot;تونس&quot;, &quot;سوريا&quot;, &quot;عُمان&quot;, &quot;فلسطين&quot;, &quot;قطر&quot;, &quot;ليبيا&quot;, &quot;مصر&quot;, &quot;موريتانيا&quot;]</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="#M000003" class="method-signature">
+          <span class="method-name">arabic_country_options_for_select</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a string of option tags for most countries in the world in Arabic.
+</p>
+<p>
+NOTE: Only the option tags are returned, you have to wrap this call in a
+regular HTML select tag.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000003-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/arabic_helper.rb, line 9</span>
+ 9:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arabic_country_options_for_select</span>
+10:       <span class="ruby-constant">PRIORITY_COUNTRIES</span> <span class="ruby-operator">+</span>
+11:       [<span class="ruby-value str">&quot;-------------&quot;</span>] <span class="ruby-operator">+</span>
+12:       (<span class="ruby-constant">ARABIC_COUNTRIES</span><span class="ruby-operator">-</span><span class="ruby-constant">PRIORITY_COUNTRIES</span>)
+13:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="#M000005" class="method-signature">
+          <span class="method-name">arabic_distance_of_time_in_words</span><span class="method-args">(from_time, to_time = 0, include_seconds = false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Reports the approximate distance in time between two Time or Date objects
+or integers as seconds in Arabic. Set <tt>include_seconds</tt> to true if
+you want more detailed approximations when distance &lt; 1 min, 29 secs
+Distances are reported based on the following table:
+</p>
+<pre>
+  0 &lt;-&gt; 29 secs                                                             # =&gt; أقل من دقيقة
+  30 secs &lt;-&gt; 1 min, 29 secs                                                # =&gt; دقيقة واحدة
+  1 min, 30 secs &lt;-&gt; 2 mins, 29 secs                                        # =&gt; دقيقتان
+  2 min, 30 secs &lt;-&gt; 10 mins, 29 secs                                       # =&gt; [2..10] دقائق
+  10 min, 30 secs &lt;-&gt; 44 mins, 29 secs                                      # =&gt; [11..44] دقيقة
+</pre>
+<p>
+With <tt>include_seconds</tt> = true and the difference &lt; 1 minute 29
+seconds:
+</p>
+<pre>
+  0-4   secs      # =&gt; أقل من ٥ ثوان
+  5-9   secs      # =&gt; أقل من ١٠ ثوان
+  10-19 secs      # =&gt; أقل من ٢٠ ثانية
+  20-39 secs      # =&gt; أقل من ٢٠ ثانية
+  40-59 secs      # =&gt; نصف دقيقة
+  60-89 secs      # =&gt; دقيقة واحدة
+</pre>
+<h4>Examples</h4>
+<pre>
+  from_time = Time.now
+  arabic_distance_of_time_in_words(from_time, from_time + 50.minutes)        # =&gt; حوالي ساعة
+  arabic_distance_of_time_in_words(from_time, 50.minutes.from_now)           # =&gt; حوالي ساعة
+  arabic_distance_of_time_in_words(from_time, from_time + 15.seconds)        # =&gt; أقل من دقيقة
+  arabic_distance_of_time_in_words(from_time, from_time + 15.seconds, true)  # =&gt; أقل من ٢٠ ثانية
+  arabic_distance_of_time_in_words(from_time, 3.years.from_now)              # =&gt; حوالي 3 سنوات
+
+  to_time = Time.now + 6.years + 19.days
+  arabic_distance_of_time_in_words(from_time, to_time, true)     # =&gt; حوالي 6 سنوات
+  arabic_distance_of_time_in_words(to_time, from_time, true)     # =&gt; حوالي 6 سنوات
+  arabic_distance_of_time_in_words(Time.now, Time.now)           # =&gt; أقل من دقيقة
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/arabic_helper.rb, line 51</span>
+51:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arabic_distance_of_time_in_words</span>(<span class="ruby-identifier">from_time</span>, <span class="ruby-identifier">to_time</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">include_seconds</span> = <span class="ruby-keyword kw">false</span>)
+52:       <span class="ruby-identifier">from_time</span> = <span class="ruby-identifier">from_time</span>.<span class="ruby-identifier">to_time</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">from_time</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:to_time</span>)
+53:       <span class="ruby-identifier">to_time</span> = <span class="ruby-identifier">to_time</span>.<span class="ruby-identifier">to_time</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">to_time</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:to_time</span>)
+54:       <span class="ruby-identifier">distance_in_minutes</span> = (((<span class="ruby-identifier">to_time</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">from_time</span>).<span class="ruby-identifier">abs</span>)<span class="ruby-operator">/</span><span class="ruby-value">60</span>).<span class="ruby-identifier">round</span>
+55:       <span class="ruby-identifier">distance_in_seconds</span> = ((<span class="ruby-identifier">to_time</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">from_time</span>).<span class="ruby-identifier">abs</span>).<span class="ruby-identifier">round</span>
+56: 
+57:       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">distance_in_minutes</span>
+58:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>
+59:           <span class="ruby-keyword kw">return</span> (<span class="ruby-identifier">distance_in_minutes</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>) <span class="ruby-operator">?</span> <span class="ruby-value str">'أقل من دقيقة'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'دقيقة واحدة'</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">include_seconds</span>
+60:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">distance_in_seconds</span>
+61:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">4</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'أقل من ٥ ثوان'</span>
+62:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">5</span><span class="ruby-operator">..</span><span class="ruby-value">9</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'أقل من ١٠ ثوان'</span>
+63:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">10</span><span class="ruby-operator">..</span><span class="ruby-value">19</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'أقل من ٢٠ ثانية'</span>
+64:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">20</span><span class="ruby-operator">..</span><span class="ruby-value">39</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'نصف دقيقة'</span>
+65:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">40</span><span class="ruby-operator">..</span><span class="ruby-value">59</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'أقل من دقيقة'</span>
+66:             <span class="ruby-keyword kw">else</span>             <span class="ruby-value str">'دقيقة واحدة'</span>
+67:           <span class="ruby-keyword kw">end</span>
+68: 
+69:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">2</span>                <span class="ruby-keyword kw">then</span> <span class="ruby-value str">&quot;دقيقتان&quot;</span>
+70:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">3</span><span class="ruby-operator">..</span><span class="ruby-value">10</span>            <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{distance_in_minutes} دقائق&quot;</span>
+71:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">11</span><span class="ruby-operator">..</span><span class="ruby-value">44</span>           <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{distance_in_minutes} دقيقة&quot;</span>
+72:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">45</span><span class="ruby-operator">..</span><span class="ruby-value">89</span>           <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي ساعة'</span>
+73:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">90</span><span class="ruby-operator">..</span><span class="ruby-value">149</span>          <span class="ruby-keyword kw">then</span> <span class="ruby-value str">&quot;حوالي ساعتين&quot;</span>
+74:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">150</span><span class="ruby-operator">..</span><span class="ruby-value">629</span>         <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;حوالي #{(distance_in_minutes.to_f / 60.0).round} ساعات&quot;</span>
+75:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">630</span><span class="ruby-operator">..</span><span class="ruby-value">1439</span>        <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;حوالي #{(distance_in_minutes.to_f / 60.0).round} ساعة&quot;</span>
+76:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1440</span><span class="ruby-operator">..</span><span class="ruby-value">2159</span>       <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'يوم واحد'</span>
+77:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">2160</span><span class="ruby-operator">..</span><span class="ruby-value">3599</span>       <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'يومين'</span>
+78:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">3600</span><span class="ruby-operator">..</span><span class="ruby-value">15119</span>      <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{(distance_in_minutes / 1440).round} أيام&quot;</span>
+79:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">15120</span><span class="ruby-operator">..</span><span class="ruby-value">43199</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{(distance_in_minutes / 1440).round} يوما&quot;</span>
+80:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">43200</span><span class="ruby-operator">..</span><span class="ruby-value">86399</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي شهر واحد'</span>
+81:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">86400</span><span class="ruby-operator">..</span><span class="ruby-value">128159</span>    <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي شهرين'</span>
+82:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">128160</span><span class="ruby-operator">..</span><span class="ruby-value">475199</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{(distance_in_minutes / 43200).round} أشهر&quot;</span>
+83:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">475200</span><span class="ruby-operator">..</span><span class="ruby-value">525599</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{(distance_in_minutes / 43200).round} شهرا&quot;</span>
+84:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">525600</span><span class="ruby-operator">..</span><span class="ruby-value">1051199</span>  <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي سنة واحدة'</span>
+85:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1051200</span><span class="ruby-operator">..</span><span class="ruby-value">1576799</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي سنتين'</span>
+86:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1576800</span><span class="ruby-operator">..</span><span class="ruby-value">5781599</span> <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;حوالي #{(distance_in_minutes / 525600).round} سنوات&quot;</span>
+87:         <span class="ruby-keyword kw">else</span>                       <span class="ruby-node">&quot;أكثر من #{(distance_in_minutes / 525600).round} سنة&quot;</span>
+88:       <span class="ruby-keyword kw">end</span> 
+89:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="#M000006" class="method-signature">
+          <span class="method-name">arabic_pluralize</span><span class="method-args">(number, singular, double, plural, gender_class='male')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Attempts to pluralize the singular word unless count is 1. It will use
+<tt>singular</tt> for the count of 1 or more than 10 It will use
+<tt>double</tt> for the count of 2 It will use <tt>plural</tt> for the
+count of 3 to 10 and for 0
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/arabic_helper.rb, line 95</span>
+ 95:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arabic_pluralize</span>(<span class="ruby-identifier">number</span>, <span class="ruby-identifier">singular</span>, <span class="ruby-identifier">double</span>, <span class="ruby-identifier">plural</span>, <span class="ruby-identifier">gender_class</span>=<span class="ruby-value str">'male'</span>)
+ 96:       <span class="ruby-identifier">one</span> = <span class="ruby-identifier">gender_class</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'male'</span> <span class="ruby-operator">?</span> <span class="ruby-value str">'واحد'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'واحدة'</span>
+ 97:       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">number</span>
+ 98:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;لا #{plural}&quot;</span>
+ 99:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{singular} #{one}&quot;</span>
+100:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">2</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{double}&quot;</span>
+101:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">3</span><span class="ruby-operator">..</span><span class="ruby-value">10</span> <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{number} #{plural}&quot;</span>
+102:         <span class="ruby-keyword kw">else</span>            <span class="ruby-node">&quot;#{number} #{singular}&quot;</span>
+103:       <span class="ruby-keyword kw">end</span>
+104:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="#M000004" class="method-signature">
+          <span class="method-name">arabic_time_ago_in_words</span><span class="method-args">(from_time, include_seconds = false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Like <a
+href="ArabicHelper.html#M000005">arabic_distance_of_time_in_words</a>, but
+where to_time is fixed to Time.now.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/arabic_helper.rb, line 16</span>
+16:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arabic_time_ago_in_words</span>(<span class="ruby-identifier">from_time</span>, <span class="ruby-identifier">include_seconds</span> = <span class="ruby-keyword kw">false</span>)
+17:       <span class="ruby-identifier">arabic_distance_of_time_in_words</span>(<span class="ruby-identifier">from_time</span>, <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>, <span class="ruby-identifier">include_seconds</span>)
+18:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
