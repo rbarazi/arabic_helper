@@ -1,10 +1,10 @@
 ArabicHelper
 ============
-A plugin to help you localize your Rails app to arabic, this include few usefull helpers and ActiveRecord localization
+A plugin to help you localize your Rails app to Arabic, this include few useful helpers and ActiveRecord localization
 
-Arabic Helper consists of two parts, model extension and views helper methods.
+Arabic Helper consists of two parts, model extension and views helper methods. Model extension is to help you have Arabic error messages and attributes names in your model. Helper methods are made to support, pluralizing, country names and time distance in Arabic.
 
-Model extension is to help you have arabic error messages and attributes names in your model.
+I’ve been also following the updates in rails-I18n - http://github.com/svenfuchs/rails-i18n/tree/master and did some work on the Arabic locale file, you can find it on: http://github.com/rbarazi/rails-i18n/tree/master. You can simply use it if you are on Rails 2.2 or Rails Edge, or if you are not then use ArabicHelper.
 
 Example
 =======
