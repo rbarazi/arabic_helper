@@ -6,10 +6,25 @@ module RidaAlBarazi
     # Returns a string of option tags for most countries in the world in Arabic.
     #
     # NOTE: Only the option tags are returned, you have to wrap this call in a regular HTML select tag.
-    def arabic_country_options_for_select
-      PRIORITY_COUNTRIES +
-      ["-------------"] +
-      (ARABIC_COUNTRIES-PRIORITY_COUNTRIES)
+    def arabic_country_options_for_select(selected = nil, priority_countries = nil)
+      country_options = options_for_select(ARABIC_COUNTRIES, selected)
+    
+      if priority_countries
+        country_options = options_for_select(PRIORITY_COUNTRIES, selected)
+        country_options += "<option value=\"\" disabled=\"disabled\">-------------</option>\n"
+        country_options += options_for_select((ARABIC_COUNTRIES-PRIORITY_COUNTRIES), selected)
+      end
+      return country_options
+    end
+
+    # Return select and option tags for the given object and method, using country_options_for_select 
+    # to generate the list of option tags.
+    def arabic_country_select(object, method, priority_countries = nil, options = {}, html_options = {})
+      countries = ARABIC_COUNTRIES
+      if priority_countries
+        countries = PRIORITY_COUNTRIES+["-------------"]+(countries-PRIORITY_COUNTRIES)
+      end
+      ActionView::Helpers::InstanceTag.new(object, method, self, nil, options.delete(:object)).to_select_tag(countries, options, html_options)
     end
 
     # Like arabic_distance_of_time_in_words, but where to_time is fixed to Time.now. 
