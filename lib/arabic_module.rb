@@ -22,6 +22,14 @@ module RidaAlBarazi
   }
 
   module ArabicModule
+    # Define an Arabic name to each of the model attributes
+    #
+    # class Company < ActiveRecord::Base
+    #   has_arabic_attributes :name => "الإسم",
+    #                         :address => "العنوان"
+    # end
+    #
+    #  Company.arabic_for(:name) # => "الإسم"
     def has_arabic_attributes(attributes={})
       class_inheritable_accessor :arabic_for
       self.arabic_for = attributes
@@ -29,6 +37,17 @@ module RidaAlBarazi
     end
     
     module InstanceMethods
+      # Returns full Arabic error messages in an array.
+      #
+      # class Company < ActiveRecord::Base
+      #   has_arabic_attributes :name => "الإسم",
+      #                         :address => "العنوان"
+      #   validates_presence_of :name, :address
+      # end
+      #
+      #  company = Company.create
+      #  company.arabic_full_messages # =>
+      #   [ " العنوان فارغ, نرجو ملء الحقل" , " الإسم فارغ, نرجو ملء الحقل"]
       def arabic_full_messages
         messages = []
 
