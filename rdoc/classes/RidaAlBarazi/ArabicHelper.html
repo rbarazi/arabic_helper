@@ -81,9 +81,10 @@
 
       <div class="name-list">
       <a href="#M000003">arabic_country_options_for_select</a>&nbsp;&nbsp;
-      <a href="#M000005">arabic_distance_of_time_in_words</a>&nbsp;&nbsp;
-      <a href="#M000006">arabic_pluralize</a>&nbsp;&nbsp;
-      <a href="#M000004">arabic_time_ago_in_words</a>&nbsp;&nbsp;
+      <a href="#M000004">arabic_country_select</a>&nbsp;&nbsp;
+      <a href="#M000006">arabic_distance_of_time_in_words</a>&nbsp;&nbsp;
+      <a href="#M000007">arabic_pluralize</a>&nbsp;&nbsp;
+      <a href="#M000005">arabic_time_ago_in_words</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -128,7 +129,7 @@
 
         <div class="method-heading">
           <a href="#M000003" class="method-signature">
-          <span class="method-name">arabic_country_options_for_select</span><span class="method-args">()</span>
+          <span class="method-name">arabic_country_options_for_select</span><span class="method-args">(selected = nil, priority_countries = nil)</span>
           </a>
         </div>
       
@@ -145,21 +146,57 @@ regular HTML select tag.
           <div class="method-source-code" id="M000003-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/arabic_helper.rb, line 9</span>
- 9:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arabic_country_options_for_select</span>
-10:       <span class="ruby-constant">PRIORITY_COUNTRIES</span> <span class="ruby-operator">+</span>
-11:       [<span class="ruby-value str">&quot;-------------&quot;</span>] <span class="ruby-operator">+</span>
-12:       (<span class="ruby-constant">ARABIC_COUNTRIES</span><span class="ruby-operator">-</span><span class="ruby-constant">PRIORITY_COUNTRIES</span>)
-13:     <span class="ruby-keyword kw">end</span>
+ 9:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arabic_country_options_for_select</span>(<span class="ruby-identifier">selected</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">priority_countries</span> = <span class="ruby-keyword kw">nil</span>)
+10:       <span class="ruby-identifier">country_options</span> = <span class="ruby-identifier">options_for_select</span>(<span class="ruby-constant">ARABIC_COUNTRIES</span>, <span class="ruby-identifier">selected</span>)
+11:     
+12:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">priority_countries</span>
+13:         <span class="ruby-identifier">country_options</span> = <span class="ruby-identifier">options_for_select</span>(<span class="ruby-constant">PRIORITY_COUNTRIES</span>, <span class="ruby-identifier">selected</span>)
+14:         <span class="ruby-identifier">country_options</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;&lt;option value=\&quot;\&quot; disabled=\&quot;disabled\&quot;&gt;-------------&lt;/option&gt;\n&quot;</span>
+15:         <span class="ruby-identifier">country_options</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">options_for_select</span>((<span class="ruby-constant">ARABIC_COUNTRIES</span><span class="ruby-operator">-</span><span class="ruby-constant">PRIORITY_COUNTRIES</span>), <span class="ruby-identifier">selected</span>)
+16:       <span class="ruby-keyword kw">end</span>
+17:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">country_options</span>
+18:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000005" class="method-detail">
-        <a name="M000005"></a>
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
 
         <div class="method-heading">
-          <a href="#M000005" class="method-signature">
+          <a href="#M000004" class="method-signature">
+          <span class="method-name">arabic_country_select</span><span class="method-args">(object, method, priority_countries = nil, options = {}, html_options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return select and option tags for the given object and method, using
+country_options_for_select to generate the list of option tags.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/arabic_helper.rb, line 22</span>
+22:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arabic_country_select</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">priority_countries</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">options</span> = {}, <span class="ruby-identifier">html_options</span> = {})
+23:       <span class="ruby-identifier">countries</span> = <span class="ruby-constant">ARABIC_COUNTRIES</span>
+24:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">priority_countries</span>
+25:         <span class="ruby-identifier">countries</span> = <span class="ruby-constant">PRIORITY_COUNTRIES</span><span class="ruby-operator">+</span>[<span class="ruby-value str">&quot;-------------&quot;</span>]<span class="ruby-operator">+</span>(<span class="ruby-identifier">countries</span><span class="ruby-operator">-</span><span class="ruby-constant">PRIORITY_COUNTRIES</span>)
+26:       <span class="ruby-keyword kw">end</span>
+27:       <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Helpers</span><span class="ruby-operator">::</span><span class="ruby-constant">InstanceTag</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-keyword kw">self</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:object</span>)).<span class="ruby-identifier">to_select_tag</span>(<span class="ruby-identifier">countries</span>, <span class="ruby-identifier">options</span>, <span class="ruby-identifier">html_options</span>)
+28:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="#M000006" class="method-signature">
           <span class="method-name">arabic_distance_of_time_in_words</span><span class="method-args">(from_time, to_time = 0, include_seconds = false)</span>
           </a>
         </div>
@@ -205,59 +242,59 @@ seconds:
   arabic_distance_of_time_in_words(Time.now, Time.now)           # =&gt; أقل من دقيقة
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000005-source">
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/arabic_helper.rb, line 51</span>
-51:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arabic_distance_of_time_in_words</span>(<span class="ruby-identifier">from_time</span>, <span class="ruby-identifier">to_time</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">include_seconds</span> = <span class="ruby-keyword kw">false</span>)
-52:       <span class="ruby-identifier">from_time</span> = <span class="ruby-identifier">from_time</span>.<span class="ruby-identifier">to_time</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">from_time</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:to_time</span>)
-53:       <span class="ruby-identifier">to_time</span> = <span class="ruby-identifier">to_time</span>.<span class="ruby-identifier">to_time</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">to_time</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:to_time</span>)
-54:       <span class="ruby-identifier">distance_in_minutes</span> = (((<span class="ruby-identifier">to_time</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">from_time</span>).<span class="ruby-identifier">abs</span>)<span class="ruby-operator">/</span><span class="ruby-value">60</span>).<span class="ruby-identifier">round</span>
-55:       <span class="ruby-identifier">distance_in_seconds</span> = ((<span class="ruby-identifier">to_time</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">from_time</span>).<span class="ruby-identifier">abs</span>).<span class="ruby-identifier">round</span>
-56: 
-57:       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">distance_in_minutes</span>
-58:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>
-59:           <span class="ruby-keyword kw">return</span> (<span class="ruby-identifier">distance_in_minutes</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>) <span class="ruby-operator">?</span> <span class="ruby-value str">'أقل من دقيقة'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'دقيقة واحدة'</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">include_seconds</span>
-60:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">distance_in_seconds</span>
-61:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">4</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'أقل من ٥ ثوان'</span>
-62:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">5</span><span class="ruby-operator">..</span><span class="ruby-value">9</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'أقل من ١٠ ثوان'</span>
-63:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">10</span><span class="ruby-operator">..</span><span class="ruby-value">19</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'أقل من ٢٠ ثانية'</span>
-64:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">20</span><span class="ruby-operator">..</span><span class="ruby-value">39</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'نصف دقيقة'</span>
-65:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">40</span><span class="ruby-operator">..</span><span class="ruby-value">59</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'أقل من دقيقة'</span>
-66:             <span class="ruby-keyword kw">else</span>             <span class="ruby-value str">'دقيقة واحدة'</span>
-67:           <span class="ruby-keyword kw">end</span>
-68: 
-69:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">2</span>                <span class="ruby-keyword kw">then</span> <span class="ruby-value str">&quot;دقيقتان&quot;</span>
-70:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">3</span><span class="ruby-operator">..</span><span class="ruby-value">10</span>            <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{distance_in_minutes} دقائق&quot;</span>
-71:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">11</span><span class="ruby-operator">..</span><span class="ruby-value">44</span>           <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{distance_in_minutes} دقيقة&quot;</span>
-72:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">45</span><span class="ruby-operator">..</span><span class="ruby-value">89</span>           <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي ساعة'</span>
-73:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">90</span><span class="ruby-operator">..</span><span class="ruby-value">149</span>          <span class="ruby-keyword kw">then</span> <span class="ruby-value str">&quot;حوالي ساعتين&quot;</span>
-74:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">150</span><span class="ruby-operator">..</span><span class="ruby-value">629</span>         <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;حوالي #{(distance_in_minutes.to_f / 60.0).round} ساعات&quot;</span>
-75:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">630</span><span class="ruby-operator">..</span><span class="ruby-value">1439</span>        <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;حوالي #{(distance_in_minutes.to_f / 60.0).round} ساعة&quot;</span>
-76:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1440</span><span class="ruby-operator">..</span><span class="ruby-value">2159</span>       <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'يوم واحد'</span>
-77:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">2160</span><span class="ruby-operator">..</span><span class="ruby-value">3599</span>       <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'يومين'</span>
-78:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">3600</span><span class="ruby-operator">..</span><span class="ruby-value">15119</span>      <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{(distance_in_minutes / 1440).round} أيام&quot;</span>
-79:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">15120</span><span class="ruby-operator">..</span><span class="ruby-value">43199</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{(distance_in_minutes / 1440).round} يوما&quot;</span>
-80:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">43200</span><span class="ruby-operator">..</span><span class="ruby-value">86399</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي شهر واحد'</span>
-81:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">86400</span><span class="ruby-operator">..</span><span class="ruby-value">128159</span>    <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي شهرين'</span>
-82:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">128160</span><span class="ruby-operator">..</span><span class="ruby-value">475199</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{(distance_in_minutes / 43200).round} أشهر&quot;</span>
-83:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">475200</span><span class="ruby-operator">..</span><span class="ruby-value">525599</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{(distance_in_minutes / 43200).round} شهرا&quot;</span>
-84:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">525600</span><span class="ruby-operator">..</span><span class="ruby-value">1051199</span>  <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي سنة واحدة'</span>
-85:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1051200</span><span class="ruby-operator">..</span><span class="ruby-value">1576799</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي سنتين'</span>
-86:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1576800</span><span class="ruby-operator">..</span><span class="ruby-value">5781599</span> <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;حوالي #{(distance_in_minutes / 525600).round} سنوات&quot;</span>
-87:         <span class="ruby-keyword kw">else</span>                       <span class="ruby-node">&quot;أكثر من #{(distance_in_minutes / 525600).round} سنة&quot;</span>
-88:       <span class="ruby-keyword kw">end</span> 
-89:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/arabic_helper.rb, line 66</span>
+ 66:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arabic_distance_of_time_in_words</span>(<span class="ruby-identifier">from_time</span>, <span class="ruby-identifier">to_time</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">include_seconds</span> = <span class="ruby-keyword kw">false</span>)
+ 67:       <span class="ruby-identifier">from_time</span> = <span class="ruby-identifier">from_time</span>.<span class="ruby-identifier">to_time</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">from_time</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:to_time</span>)
+ 68:       <span class="ruby-identifier">to_time</span> = <span class="ruby-identifier">to_time</span>.<span class="ruby-identifier">to_time</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">to_time</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:to_time</span>)
+ 69:       <span class="ruby-identifier">distance_in_minutes</span> = (((<span class="ruby-identifier">to_time</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">from_time</span>).<span class="ruby-identifier">abs</span>)<span class="ruby-operator">/</span><span class="ruby-value">60</span>).<span class="ruby-identifier">round</span>
+ 70:       <span class="ruby-identifier">distance_in_seconds</span> = ((<span class="ruby-identifier">to_time</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">from_time</span>).<span class="ruby-identifier">abs</span>).<span class="ruby-identifier">round</span>
+ 71: 
+ 72:       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">distance_in_minutes</span>
+ 73:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>
+ 74:           <span class="ruby-keyword kw">return</span> (<span class="ruby-identifier">distance_in_minutes</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>) <span class="ruby-operator">?</span> <span class="ruby-value str">'أقل من دقيقة'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'دقيقة واحدة'</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">include_seconds</span>
+ 75:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">distance_in_seconds</span>
+ 76:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">4</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'أقل من ٥ ثوان'</span>
+ 77:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">5</span><span class="ruby-operator">..</span><span class="ruby-value">9</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'أقل من ١٠ ثوان'</span>
+ 78:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">10</span><span class="ruby-operator">..</span><span class="ruby-value">19</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'أقل من ٢٠ ثانية'</span>
+ 79:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">20</span><span class="ruby-operator">..</span><span class="ruby-value">39</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'نصف دقيقة'</span>
+ 80:             <span class="ruby-keyword kw">when</span> <span class="ruby-value">40</span><span class="ruby-operator">..</span><span class="ruby-value">59</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'أقل من دقيقة'</span>
+ 81:             <span class="ruby-keyword kw">else</span>             <span class="ruby-value str">'دقيقة واحدة'</span>
+ 82:           <span class="ruby-keyword kw">end</span>
+ 83: 
+ 84:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">2</span>                <span class="ruby-keyword kw">then</span> <span class="ruby-value str">&quot;دقيقتان&quot;</span>
+ 85:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">3</span><span class="ruby-operator">..</span><span class="ruby-value">10</span>            <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{distance_in_minutes} دقائق&quot;</span>
+ 86:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">11</span><span class="ruby-operator">..</span><span class="ruby-value">44</span>           <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{distance_in_minutes} دقيقة&quot;</span>
+ 87:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">45</span><span class="ruby-operator">..</span><span class="ruby-value">89</span>           <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي ساعة'</span>
+ 88:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">90</span><span class="ruby-operator">..</span><span class="ruby-value">149</span>          <span class="ruby-keyword kw">then</span> <span class="ruby-value str">&quot;حوالي ساعتين&quot;</span>
+ 89:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">150</span><span class="ruby-operator">..</span><span class="ruby-value">629</span>         <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;حوالي #{(distance_in_minutes.to_f / 60.0).round} ساعات&quot;</span>
+ 90:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">630</span><span class="ruby-operator">..</span><span class="ruby-value">1439</span>        <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;حوالي #{(distance_in_minutes.to_f / 60.0).round} ساعة&quot;</span>
+ 91:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1440</span><span class="ruby-operator">..</span><span class="ruby-value">2159</span>       <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'يوم واحد'</span>
+ 92:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">2160</span><span class="ruby-operator">..</span><span class="ruby-value">3599</span>       <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'يومين'</span>
+ 93:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">3600</span><span class="ruby-operator">..</span><span class="ruby-value">15119</span>      <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{(distance_in_minutes / 1440).round} أيام&quot;</span>
+ 94:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">15120</span><span class="ruby-operator">..</span><span class="ruby-value">43199</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{(distance_in_minutes / 1440).round} يوما&quot;</span>
+ 95:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">43200</span><span class="ruby-operator">..</span><span class="ruby-value">86399</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي شهر واحد'</span>
+ 96:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">86400</span><span class="ruby-operator">..</span><span class="ruby-value">128159</span>    <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي شهرين'</span>
+ 97:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">128160</span><span class="ruby-operator">..</span><span class="ruby-value">475199</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{(distance_in_minutes / 43200).round} أشهر&quot;</span>
+ 98:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">475200</span><span class="ruby-operator">..</span><span class="ruby-value">525599</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{(distance_in_minutes / 43200).round} شهرا&quot;</span>
+ 99:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">525600</span><span class="ruby-operator">..</span><span class="ruby-value">1051199</span>  <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي سنة واحدة'</span>
+100:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1051200</span><span class="ruby-operator">..</span><span class="ruby-value">1576799</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value str">'حوالي سنتين'</span>
+101:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1576800</span><span class="ruby-operator">..</span><span class="ruby-value">5781599</span> <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;حوالي #{(distance_in_minutes / 525600).round} سنوات&quot;</span>
+102:         <span class="ruby-keyword kw">else</span>                       <span class="ruby-node">&quot;أكثر من #{(distance_in_minutes / 525600).round} سنة&quot;</span>
+103:       <span class="ruby-keyword kw">end</span> 
+104:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000006" class="method-detail">
-        <a name="M000006"></a>
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
 
         <div class="method-heading">
-          <a href="#M000006" class="method-signature">
+          <a href="#M000007" class="method-signature">
           <span class="method-name">arabic_pluralize</span><span class="method-args">(number, singular, double, plural, gender_class='male')</span>
           </a>
         </div>
@@ -270,30 +307,30 @@ Attempts to pluralize the singular word unless count is 1. It will use
 count of 3 to 10 and for 0
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000006-source">
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/arabic_helper.rb, line 95</span>
- 95:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arabic_pluralize</span>(<span class="ruby-identifier">number</span>, <span class="ruby-identifier">singular</span>, <span class="ruby-identifier">double</span>, <span class="ruby-identifier">plural</span>, <span class="ruby-identifier">gender_class</span>=<span class="ruby-value str">'male'</span>)
- 96:       <span class="ruby-identifier">one</span> = <span class="ruby-identifier">gender_class</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'male'</span> <span class="ruby-operator">?</span> <span class="ruby-value str">'واحد'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'واحدة'</span>
- 97:       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">number</span>
- 98:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;لا #{plural}&quot;</span>
- 99:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{singular} #{one}&quot;</span>
-100:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">2</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{double}&quot;</span>
-101:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">3</span><span class="ruby-operator">..</span><span class="ruby-value">10</span> <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{number} #{plural}&quot;</span>
-102:         <span class="ruby-keyword kw">else</span>            <span class="ruby-node">&quot;#{number} #{singular}&quot;</span>
-103:       <span class="ruby-keyword kw">end</span>
-104:     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/arabic_helper.rb, line 110</span>
+110:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arabic_pluralize</span>(<span class="ruby-identifier">number</span>, <span class="ruby-identifier">singular</span>, <span class="ruby-identifier">double</span>, <span class="ruby-identifier">plural</span>, <span class="ruby-identifier">gender_class</span>=<span class="ruby-value str">'male'</span>)
+111:       <span class="ruby-identifier">one</span> = <span class="ruby-identifier">gender_class</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'male'</span> <span class="ruby-operator">?</span> <span class="ruby-value str">'واحد'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'واحدة'</span>
+112:       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">number</span>
+113:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">0</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;لا #{plural}&quot;</span>
+114:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">1</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{singular} #{one}&quot;</span>
+115:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">2</span>     <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{double}&quot;</span>
+116:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">3</span><span class="ruby-operator">..</span><span class="ruby-value">10</span> <span class="ruby-keyword kw">then</span> <span class="ruby-node">&quot;#{number} #{plural}&quot;</span>
+117:         <span class="ruby-keyword kw">else</span>            <span class="ruby-node">&quot;#{number} #{singular}&quot;</span>
+118:       <span class="ruby-keyword kw">end</span>
+119:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000004" class="method-detail">
-        <a name="M000004"></a>
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
 
         <div class="method-heading">
-          <a href="#M000004" class="method-signature">
+          <a href="#M000005" class="method-signature">
           <span class="method-name">arabic_time_ago_in_words</span><span class="method-args">(from_time, include_seconds = false)</span>
           </a>
         </div>
@@ -301,17 +338,17 @@ count of 3 to 10 and for 0
         <div class="method-description">
           <p>
 Like <a
-href="ArabicHelper.html#M000005">arabic_distance_of_time_in_words</a>, but
+href="ArabicHelper.html#M000006">arabic_distance_of_time_in_words</a>, but
 where to_time is fixed to Time.now.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000004-source">
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/arabic_helper.rb, line 16</span>
-16:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arabic_time_ago_in_words</span>(<span class="ruby-identifier">from_time</span>, <span class="ruby-identifier">include_seconds</span> = <span class="ruby-keyword kw">false</span>)
-17:       <span class="ruby-identifier">arabic_distance_of_time_in_words</span>(<span class="ruby-identifier">from_time</span>, <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>, <span class="ruby-identifier">include_seconds</span>)
-18:     <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/arabic_helper.rb, line 31</span>
+31:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">arabic_time_ago_in_words</span>(<span class="ruby-identifier">from_time</span>, <span class="ruby-identifier">include_seconds</span> = <span class="ruby-keyword kw">false</span>)
+32:       <span class="ruby-identifier">arabic_distance_of_time_in_words</span>(<span class="ruby-identifier">from_time</span>, <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>, <span class="ruby-identifier">include_seconds</span>)
+33:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

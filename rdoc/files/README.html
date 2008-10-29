@@ -56,7 +56,7 @@
     </tr>
     <tr class="top-aligned-row">
       <td><strong>Last Update:</strong></td>
-      <td>Fri Oct 10 01:50:36 +0400 2008</td>
+      <td>Tue Oct 14 01:51:38 +0400 2008</td>
     </tr>
     </table>
   </div>
@@ -74,16 +74,22 @@ ArabicHelper
 </p>
 <h6>======</h6>
 <p>
-A plugin to help you localize your Rails app to arabic, this include few
-usefull helpers and ActiveRecord localization
+A plugin to help you localize your Rails app to Arabic, this include few
+useful helpers and ActiveRecord localization
 </p>
 <p>
 Arabic Helper consists of two parts, model extension and views helper
-methods.
+methods. Model extension is to help you have Arabic error messages and
+attributes names in your model. Helper methods are made to support,
+pluralizing, country names and time distance in Arabic.
 </p>
 <p>
-Model extension is to help you have arabic error messages and attributes
-names in your model.
+I’ve been also following the updates in rails-I18n - <a
+href="http://github.com/svenfuchs/rails-i18n/tree/master">github.com/svenfuchs/rails-i18n/tree/master</a>
+and did some work on the Arabic locale file, you can find it on: <a
+href="http://github.com/rbarazi/rails-i18n/tree/master">github.com/rbarazi/rails-i18n/tree/master</a>.
+You can simply use it if you are on Rails 2.2 or Rails Edge, or if you are
+not then use ArabicHelper.
 </p>
 <p>
 Example
@@ -109,7 +115,8 @@ View/Controller
 Available helpers:
 </p>
 <pre>
-  arabic_country_options_for_select
+  arabic_country_options_for_select(selected = nil, priority_countries = nil)
+  arabic_country_select(object, method, priority_countries = nil, options = {}, html_options = {})
   arabic_time_ago_in_words(from_time, include_seconds = false)
   arabic_distance_of_time_in_words(from_time, to_time = 0, include_seconds = false)
   arabic_pluralize(number, singular, double, plural, gender_class='male')
