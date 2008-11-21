@@ -32,4 +32,8 @@ Available helpers:
   arabic_distance_of_time_in_words(from_time, to_time = 0, include_seconds = false)
   arabic_pluralize(number, singular, double, plural, gender_class='male')
 
+TODO:
+=====
+- Write test for helper methods
+
 Copyright (c) 2008 Rida Al Barazi, released under the MIT license
