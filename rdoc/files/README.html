@@ -56,7 +56,7 @@
     </tr>
     <tr class="top-aligned-row">
       <td><strong>Last Update:</strong></td>
-      <td>Tue Oct 14 01:51:38 +0400 2008</td>
+      <td>Fri Nov 21 23:28:58 +0400 2008</td>
     </tr>
     </table>
   </div>
@@ -75,7 +75,12 @@ ArabicHelper
 <h6>======</h6>
 <p>
 A plugin to help you localize your Rails app to Arabic, this include few
-useful helpers and ActiveRecord localization
+useful helpers and ActiveRecord localization.
+</p>
+<p>
+This plugin is made before Rails 2.2, in Rails 2.2, I18n has been added as
+part of ActionPack, which is the answer to the need of this plugin. So use
+it only for versions before 2.2
 </p>
 <p>
 Arabic Helper consists of two parts, model extension and views helper
@@ -121,6 +126,15 @@ Available helpers:
   arabic_distance_of_time_in_words(from_time, to_time = 0, include_seconds = false)
   arabic_pluralize(number, singular, double, plural, gender_class='male')
 </pre>
+<p>
+TODO:
+</p>
+<h5></h5>
+<ul>
+<li>Write test for helper methods
+
+</li>
+</ul>
 <p>
 Copyright (c) 2008 Rida Al Barazi, released under the MIT license
 </p>
